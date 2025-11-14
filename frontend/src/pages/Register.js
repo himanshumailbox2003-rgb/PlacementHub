@@ -9,12 +9,11 @@ export default function Register() {
   const [role, setRole] = useState('student');
   const nav = useNavigate();
 
-  const API = process.env.REACT_APP_API;
-
   async function submit(e) {
     e.preventDefault();
+
     try {
-      const res = await axios.post(`${API}/api/auth/register`, {
+      const res = await axios.post('/api/auth/register', {
         name,
         email,
         password,
@@ -31,6 +30,7 @@ export default function Register() {
   return (
     <div className="container">
       <h2>Register</h2>
+
       <form onSubmit={submit}>
         <input
           value={name}
