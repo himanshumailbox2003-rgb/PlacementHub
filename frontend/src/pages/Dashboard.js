@@ -77,31 +77,14 @@ export default function Dashboard() {
       {user?.role === 'recruiter' && (
         <form onSubmit={postJob}>
           <h3>Post Job</h3>
-
-          <input
-            value={title}
-            onChange={e => setTitle(e.target.value)}
-            placeholder="Title"
-          />
-
-          <input
-            value={company}
-            onChange={e => setCompany(e.target.value)}
-            placeholder="Company"
-          />
-
-          <textarea
-            value={desc}
-            onChange={e => setDesc(e.target.value)}
-            placeholder="Description"
-          ></textarea>
-
+          <input value={title} onChange={e => setTitle(e.target.value)} placeholder="Title" />
+          <input value={company} onChange={e => setCompany(e.target.value)} placeholder="Company" />
+          <textarea value={desc} onChange={e => setDesc(e.target.value)} placeholder="Description"></textarea>
           <button>Post</button>
         </form>
       )}
 
       <h3>Jobs</h3>
-
       <input type="file" id="resume" />
 
       {jobs.map(j => (
