@@ -8,22 +8,20 @@ export default function Dashboard() {
   const [desc, setDesc] = useState('');
   const [user, setUser] = useState(null);
 
-  const API = process.env.REACT_APP_API; // 🔥 IMPORTANT
-
   useEffect(() => {
     load();
     loadMe();
   }, []);
 
   async function load() {
-    const res = await axios.get(`${API}/api/jobs`);
+    const res = await axios.get('/api/jobs');
     setJobs(res.data.jobs);
   }
 
   async function loadMe() {
     try {
       const token = localStorage.getItem('ph_token');
-      const res = await axios.get(`${API}/api/auth/me`, {
+      const res = await axios.get('/api/auth/me', {
         headers: { Authorization: 'Bearer ' + token }
       });
       setUser(res.data.user);
@@ -35,7 +33,7 @@ export default function Dashboard() {
     try {
       const token = localStorage.getItem('ph_token');
       await axios.post(
-        `${API}/api/jobs`,
+        '/api/jobs',
         { title, company, description: desc },
         { headers: { Authorization: 'Bearer ' + token } }
       );
@@ -57,7 +55,7 @@ export default function Dashboard() {
       const file = document.getElementById('resume').files[0];
       if (file) form.append('resume', file);
 
-      await axios.post(`${API}/api/jobs/${jobId}/apply`, form, {
+      await axios.post(`/api/jobs/${jobId}/apply`, form, {
         headers: {
           Authorization: 'Bearer ' + token,
           'Content-Type': 'multipart/form-data'
@@ -80,11 +78,23 @@ export default function Dashboard() {
         <form onSubmit={postJob}>
           <h3>Post Job</h3>
 
-          <input value={title} onChange={e => setTitle(e.target.value)} placeholder="Title" />
+          <input
+            value={title}
+            onChange={e => setTitle(e.target.value)}
+            placeholder="Title"
+          />
 
-          <input value={company} onChange={e => setCompany(e.target.value)} placeholder="Company" />
+          <input
+            value={company}
+            onChange={e => setCompany(e.target.value)}
+            placeholder="Company"
+          />
 
-          <textarea value={desc} onChange={e => setDesc(e.target.value)} placeholder="Description"></textarea>
+          <textarea
+            value={desc}
+            onChange={e => setDesc(e.target.value)}
+            placeholder="Description"
+          ></textarea>
 
           <button>Post</button>
         </form>
