@@ -7,10 +7,12 @@ export default function Login() {
   const [password, setPassword] = useState('');
   const nav = useNavigate();
 
+  // Backend URL from Vercel env variable
   const API = process.env.REACT_APP_API;
 
   async function submit(e) {
     e.preventDefault();
+
     try {
       const res = await axios.post(`${API}/api/auth/login`, {
         email,
@@ -27,18 +29,21 @@ export default function Login() {
   return (
     <div className="container">
       <h2>Login</h2>
+
       <form onSubmit={submit}>
         <input
           value={email}
           onChange={e => setEmail(e.target.value)}
           placeholder="Email"
         />
+
         <input
           type="password"
           value={password}
           onChange={e => setPassword(e.target.value)}
           placeholder="Password"
         />
+
         <button>Login</button>
       </form>
     </div>
