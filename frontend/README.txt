@@ -1,0 +1,1 @@
+Frontend: React app. During development set proxy in package.json to backend URL or run with env REACT_APP_API_URL.

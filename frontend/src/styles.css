@@ -1,0 +1,6 @@
+body{font-family:Inter,system-ui,Segoe UI,Roboto,Arial; margin:0;background:#f5f7fb;color:#111}
+.container{max-width:1000px;margin:24px auto;padding:20px;background:#fff;border-radius:10px;box-shadow:0 10px 30px rgba(2,6,23,0.08)}
+button{background:#0b69ff;color:#fff;padding:8px 12px;border-radius:8px;border:none;cursor:pointer}
+input,textarea,select{width:100%;padding:8px;margin:8px 0;border-radius:6px;border:1px solid #ddd}
+.header{display:flex;justify-content:space-between;align-items:center}
+.job{border:1px solid #eee;padding:12px;border-radius:8px;margin:8px 0}
