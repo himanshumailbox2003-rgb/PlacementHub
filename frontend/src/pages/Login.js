@@ -7,14 +7,11 @@ export default function Login() {
   const [password, setPassword] = useState('');
   const nav = useNavigate();
 
-  // Backend URL from Vercel env variable
-  const API = process.env.REACT_APP_API;
-
   async function submit(e) {
     e.preventDefault();
 
     try {
-      const res = await axios.post(`${API}/api/auth/login`, {
+      const res = await axios.post('/api/auth/login', {
         email,
         password
       });
