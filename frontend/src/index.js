@@ -1,9 +1,12 @@
-import React from "react";
-import ReactDOM from "react-dom/client";
-import App from "./App";
+import React from 'react';
+import ReactDOM from 'react-dom/client';
+import App from './App';
 import axios from "axios";
 
-axios.defaults.baseURL = process.env.REACT_APP_API;
+// HARD-CODE BACKEND URL (BEST FOR YOUR PROJECT)
+axios.defaults.baseURL = "https://placementhub-backend.onrender.com";
 
-const root = ReactDOM.createRoot(document.getElementById("root"));
+console.log("Backend URL => ", axios.defaults.baseURL);
+
+const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(<App />);
