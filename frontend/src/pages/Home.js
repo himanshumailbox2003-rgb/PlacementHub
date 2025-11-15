@@ -1,54 +1,76 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import Navbar from "../components/Navbar";
+import Footer from "../components/Footer";
 import "./home.css";
 
 export default function Home() {
   return (
-    <div className="landing-container">
+    <>
+      <Navbar />
+      <main className="home-hero">
+        <div className="container hero-inner">
+          <div className="hero-left">
+            <h1 className="hero-title">Build your career with PlacementHub</h1>
+            <p className="hero-sub">A secure, fast platform connecting students to recruiters. Post jobs, apply with resumes, and track applications — all in one place.</p>
 
-      {/* NAVBAR */}
-      <nav className="navbar">
-        <div className="nav-logo">PlacementHub</div>
-        <div className="nav-links">
-          <Link to="/">Home</Link>
-          <Link to="/login">Login</Link>
-          <Link to="/register">Register</Link>
+            <div className="hero-ctas">
+              <Link to="/register" className="btn cta">Get Started</Link>
+              <Link to="/register" className="btn outline">Create Account</Link>
+            </div>
+
+            <div className="feature-row">
+              <div className="feature">
+                <div className="feature-title">Fast Applications</div>
+                <div className="feature-desc">One-click apply and resume management.</div>
+              </div>
+
+              <div className="feature">
+                <div className="feature-title">Recruiter Tools</div>
+                <div className="feature-desc">Post roles and manage candidates easily.</div>
+              </div>
+
+              <div className="feature">
+                <div className="feature-title">Secure Auth</div>
+                <div className="feature-desc">JWT based, password hashed & safe.</div>
+              </div>
+            </div>
+          </div>
+
+          <div className="hero-right">
+            {/* small mockup card (no external images) */}
+            <div className="mockup-card">
+              <div className="mockup-header">Latest Jobs</div>
+              <div className="mockup-list">
+                <div className="mockup-item"><strong>Frontend Intern</strong><span> — Acme</span></div>
+                <div className="mockup-item"><strong>Backend Intern</strong><span> — TechCorp</span></div>
+                <div className="mockup-item"><strong>QA Intern</strong><span> — FinTech</span></div>
+              </div>
+              <div className="mockup-cta">View all jobs</div>
+            </div>
+          </div>
         </div>
-      </nav>
+      </main>
 
-      {/* HERO SECTION */}
-      <header className="hero">
-        <h1 className="title fade-in">
-          Build Your Future with <span>PlacementHub</span>
-        </h1>
-        <p className="subtitle fade-in-delay">
-          A modern platform for students & recruiters — manage applications,
-          explore opportunities, and streamline placement operations.
-        </p>
-
-        <div className="hero-buttons fade-in-delay">
-          <Link to="/login" className="btn primary">Get Started</Link>
-          <Link to="/register" className="btn secondary">Create Account</Link>
-        </div>
-      </header>
-
-      {/* FEATURE CARDS */}
-      <section className="features-section slide-up">
-        <div className="feature-card">
-          <h3>Student Dashboard</h3>
-          <p>Upload resumes, apply to jobs, and track your application status.</p>
-        </div>
-
-        <div className="feature-card">
-          <h3>Recruiter Tools</h3>
-          <p>Post jobs, manage applicants, and review resumes easily.</p>
-        </div>
-
-        <div className="feature-card">
-          <h3>Secure & Fast</h3>
-          <p>Powered by Node.js, Express, MongoDB & JWT Authentication.</p>
+      <section className="how-it-works container">
+        <h2 className="section-title">How it works</h2>
+        <div className="steps">
+          <div className="step">
+            <div className="step-no">1</div>
+            <div className="step-body"><b>Register</b><div>Create an account as a student or recruiter.</div></div>
+          </div>
+          <div className="step">
+            <div className="step-no">2</div>
+            <div className="step-body"><b>Post / Apply</b><div>Recruiters post; students apply with resume.</div></div>
+          </div>
+          <div className="step">
+            <div className="step-no">3</div>
+            <div className="step-body"><b>Shortlist</b><div>Recruiters review applications and shortlist candidates.</div></div>
+          </div>
         </div>
       </section>
-    </div>
+
+      <Footer />
+    </>
   );
 }
