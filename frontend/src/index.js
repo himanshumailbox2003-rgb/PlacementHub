@@ -1,12 +1,25 @@
-import React from 'react';
-import ReactDOM from 'react-dom/client';
-import App from './App';
+import React, { useEffect, useState } from "react";
+import ReactDOM from "react-dom/client";
+import App from "./App";
 import axios from "axios";
+import Preloader from "./components/Preloader";
+import "./styles.css";
 
-// HARD-CODE BACKEND URL (BEST FOR YOUR PROJECT)
 axios.defaults.baseURL = "https://placementhub-backend.onrender.com";
 
-console.log("Backend URL => ", axios.defaults.baseURL);
+function Root() {
+  const [ready, setReady] = useState(false);
 
-const root = ReactDOM.createRoot(document.getElementById('root'));
-root.render(<App />);
+  useEffect(() => {
+    function onLoad() { setReady(true); }
+    if (document.readyState === "complete") setReady(true);
+    else window.addEventListener("load", onLoad);
+    return () => window.removeEventListener("load", onLoad);
+  }, []);
+
+  if (!ready) return <Preloader />;
+  return <App />;
+}
+
+const root = ReactDOM.createRoot(document.getElementById("root"));
+root.render(<Root />);
