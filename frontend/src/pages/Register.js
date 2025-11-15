@@ -11,27 +11,18 @@ export default function Register() {
 
   async function submit(e) {
     e.preventDefault();
-
     try {
-      const res = await axios.post(
-        "https://placementhub-backend.onrender.com/api/auth/register",
-        {
-          name,
-          email,
-          password,
-          role,
-        },
-        {
-          headers: {
-            "Content-Type": "application/json",
-          },
-        }
-      );
+      const res = await axios.post("/api/auth/register", {
+        name,
+        email,
+        password,
+        role
+      });
 
       localStorage.setItem("ph_token", res.data.token);
       nav("/dashboard");
     } catch (err) {
-      console.error("REGISTER ERROR:", err);
+      console.log(err);
       alert(err.response?.data?.error || "Register failed");
     }
   }
@@ -39,33 +30,29 @@ export default function Register() {
   return (
     <div className="container">
       <h2>Register</h2>
-
       <form onSubmit={submit}>
         <input
           value={name}
           onChange={(e) => setName(e.target.value)}
           placeholder="Full name"
         />
-
         <input
           value={email}
           onChange={(e) => setEmail(e.target.value)}
           placeholder="Email"
         />
-
         <input
           type="password"
           value={password}
           onChange={(e) => setPassword(e.target.value)}
           placeholder="Password"
         />
-
         <select value={role} onChange={(e) => setRole(e.target.value)}>
           <option value="student">Student</option>
           <option value="recruiter">Recruiter</option>
         </select>
 
-        <button type="submit">Register</button>
+        <button>Register</button>
       </form>
     </div>
   );
