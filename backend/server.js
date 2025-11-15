@@ -9,7 +9,6 @@ const path = require('path');
 
 const app = express();
 
-// ✅ FIXED CORS — allows your new Vercel domain
 app.use(
   cors({
     origin: [
