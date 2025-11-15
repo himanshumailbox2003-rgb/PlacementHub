@@ -1,57 +1,54 @@
-/* NAVBAR FULL REPAIR – Modern Dark UI */
+import React from "react";
+import { Link, useLocation } from "react-router-dom";
+import "./navbar.css";
 
-.navbar {
-  width: 100%;
-  background: #0f0f11;
-  padding: 16px 40px;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  border-bottom: 1px solid #1e1e22;
-  position: sticky;
-  top: 0;
-  z-index: 999;
-}
+export default function Navbar() {
+  const location = useLocation();
 
-.nav-left {
-  font-size: 22px;
-  font-weight: 600;
-}
+  return (
+    <nav className="navbar">
+      <div className="nav-left">
+        <Link to="/" className="logo">
+          PlacementHub
+        </Link>
+      </div>
 
-.nav-left a {
-  color: white;
-  text-decoration: none;
-}
+      <div className="nav-right">
+        <Link
+          to="/"
+          className={location.pathname === "/" ? "active nav-link" : "nav-link"}
+        >
+          Home
+        </Link>
 
-.nav-links {
-  display: flex;
-  gap: 24px;
-}
+        <Link
+          to="/login"
+          className={
+            location.pathname === "/login" ? "active nav-link" : "nav-link"
+          }
+        >
+          Login
+        </Link>
 
-.nav-links a {
-  color: #bfc1c8;
-  font-size: 15px;
-  text-decoration: none;
-  transition: 0.2s ease;
-}
+        <Link
+          to="/register"
+          className={
+            location.pathname === "/register" ? "active nav-link" : "nav-link"
+          }
+        >
+          Register
+        </Link>
 
-.nav-links a:hover {
-  color: white;
-}
-
-.theme-toggle {
-  background: #4d6fff;
-  width: 40px;
-  height: 40px;
-  border-radius: 12px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 20px;
-  cursor: pointer;
-  transition: 0.2s ease;
-}
-
-.theme-toggle:hover {
-  background: #3c55cc;
+        {/* Dark Mode Toggle */}
+        <button
+          className="theme-toggle"
+          onClick={() => {
+            document.body.classList.toggle("light-mode");
+          }}
+        >
+          ☀️
+        </button>
+      </div>
+    </nav>
+  );
 }
