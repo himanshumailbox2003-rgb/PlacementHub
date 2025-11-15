@@ -10,19 +10,19 @@ const path = require('path');
 const app = express();
 
 // -----------------------------
-// 1) BODY PARSERS FIRST
+// 1) BODY PARSERS
 // -----------------------------
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 // -----------------------------
-// 2) CORS CONFIG
+// 2) CORS CONFIG (VERY IMPORTANT)
 // -----------------------------
 app.use(
   cors({
     origin: [
-      "https://placementhub-kappa.vercel.app",   // Vercel Frontend
-      "http://localhost:3000"                   // Local Dev
+      "https://placement-hub-kappa.vercel.app",   // ✅ CORRECT FRONTEND URL
+      "http://localhost:3000"
     ],
     methods: ["GET", "POST", "PUT", "DELETE"],
     allowedHeaders: ["Content-Type", "Authorization"],
