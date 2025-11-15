@@ -5,7 +5,7 @@ import axios from "axios";
 import Preloader from "./components/Preloader";
 import "./styles.css";
 
-axios.defaults.baseURL = "https://placementhub-backend.onrender.com/";
+axios.defaults.baseURL = "https://placementhub-backend.onrender.com";
 axios.defaults.withCredentials = false;
 
 function Root() {
