@@ -1,10 +1,35 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
-export default function Home(){
+import React from "react";
+import { Link } from "react-router-dom";
+import "./home.css";
+
+export default function Home() {
   return (
-    <div className="container">
-      <div className="header"><h1>PlacementHub</h1><div><Link to='/login'>Login</Link> | <Link to='/register'>Register</Link></div></div>
-      <p>Professional placement & recruitment portal built for your resume/project.</p>
+    <div className="home-wrapper">
+      <div className="home-card animate">
+        <h1 className="title">PlacementHub</h1>
+
+        <p className="subtitle">
+          A modern platform connecting students and recruiters with seamless job posting,
+          applications, and resume management.
+        </p>
+
+        <div className="features">
+          <div className="feature-box animate">
+            <h3>For Students</h3>
+            <p>Browse job openings, upload resumes, and apply instantly.</p>
+          </div>
+
+          <div className="feature-box animate">
+            <h3>For Recruiters</h3>
+            <p>Post new job roles, manage applicants, and streamline hiring.</p>
+          </div>
+        </div>
+
+        <div className="buttons">
+          <Link to="/login" className="btn">Login</Link>
+          <Link to="/register" className="btn outline">Register</Link>
+        </div>
+      </div>
     </div>
-  )
+  );
 }
