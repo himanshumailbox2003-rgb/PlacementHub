@@ -20,15 +20,23 @@ app.use(express.urlencoded({ extended: true }));
 // -----------------------------
 app.use(
   cors({
-    origin: [
-      "https://placement-hub-kappa.vercel.app",   // ✅ CORRECT FRONTEND URL
-      "http://localhost:3000"
-    ],
+    origin: (origin, callback) => {
+      if (!origin) return callback(null, true);  // mobile/postman
+
+      // Allow ALL Vercel frontend deployments
+      if (origin.includes(".vercel.app")) return callback(null, true);
+
+      // Allow local development
+      if (origin === "http://localhost:3000") return callback(null, true);
+
+      return callback(new Error("CORS blocked by server."));
+    },
     methods: ["GET", "POST", "PUT", "DELETE"],
     allowedHeaders: ["Content-Type", "Authorization"],
     credentials: true
   })
 );
+
 
 // Allow preflight
 app.options("*", cors());
