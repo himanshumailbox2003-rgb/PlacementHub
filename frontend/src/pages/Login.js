@@ -10,7 +10,10 @@ export default function Login() {
   async function submit(e) {
     e.preventDefault();
     try {
-      const res = await axios.post('/api/auth/login', { email, password });
+      const res = await axios.post(
+        "https://placementhub-backend.onrender.com/api/auth/login",
+        { email, password }
+      );
 
       localStorage.setItem('ph_token', res.data.token);
       nav('/dashboard');
@@ -23,8 +26,8 @@ export default function Login() {
     <div className="container">
       <h2>Login</h2>
       <form onSubmit={submit}>
-        <input value={email} onChange={e => setEmail(e.target.value)} placeholder="Email" />
-        <input type="password" value={password} onChange={e => setPassword(e.target.value)} placeholder="Password" />
+        <input value={email} onChange={e=>setEmail(e.target.value)} placeholder="Email" />
+        <input type="password" value={password} onChange={e=>setPassword(e.target.value)} placeholder="Password" />
         <button>Login</button>
       </form>
     </div>
