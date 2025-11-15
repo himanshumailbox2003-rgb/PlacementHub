@@ -12,8 +12,7 @@ export default function Register() {
   async function submit(e) {
     e.preventDefault();
     try {
-      const res = await axios.post("https://placementhub-backend.onrender.com/api/auth/register", {
-
+      const res = await axios.post("/api/auth/register", {
         name, email, password, role
       });
 
