@@ -9,8 +9,8 @@ export default function Home() {
         <h1 className="title">PlacementHub</h1>
 
         <p className="subtitle">
-          A modern platform connecting students and recruiters with seamless job posting,
-          applications, and resume management.
+          A modern platform that connects students and recruiters with seamless job posting,
+          applications, authentication, and resume management.
         </p>
 
         <div className="features">
@@ -21,7 +21,7 @@ export default function Home() {
 
           <div className="feature-box animate">
             <h3>For Recruiters</h3>
-            <p>Post new job roles, manage applicants, and streamline hiring.</p>
+            <p>Post roles, manage applicants, and streamline hiring.</p>
           </div>
         </div>
 
