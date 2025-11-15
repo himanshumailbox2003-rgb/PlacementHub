@@ -9,33 +9,36 @@ const path = require('path');
 
 const app = express();
 
-// -----------------------------
-// 1) BODY PARSERS
+
 // -----------------------------
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
-// -----------------------------
-// 2) CORS CONFIG (VERY IMPORTANT)
+
 // -----------------------------
 app.use(
   cors({
-    origin: (origin, callback) => {
-      if (!origin) return callback(null, true);  // mobile/postman
+    origin: function (origin, callback) {
 
-      // Allow ALL Vercel frontend deployments
+      // allow mobile/postman
+      if (!origin) return callback(null, true);
+
+      // allow ALL Vercel deployments
       if (origin.includes(".vercel.app")) return callback(null, true);
 
-      // Allow local development
+      // allow local development
       if (origin === "http://localhost:3000") return callback(null, true);
 
-      return callback(new Error("CORS blocked by server."));
+      return callback(new Error("Not allowed by CORS"));
     },
+
     methods: ["GET", "POST", "PUT", "DELETE"],
-    allowedHeaders: ["Content-Type", "Authorization"],
-    credentials: true
+    credentials: true,
+    allowedHeaders: ["Content-Type", "Authorization"]
   })
 );
+
+app.options("*", cors());
 
 
 // Allow preflight
