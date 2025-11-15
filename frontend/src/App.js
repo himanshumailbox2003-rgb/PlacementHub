@@ -1,10 +1,9 @@
-import React from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-
+import Home from "./pages/Home";
 import Login from "./pages/Login";
 import Register from "./pages/Register";
 import Dashboard from "./pages/Dashboard";
-import Home from "./pages/Home";
+import "./styles.css";
 
 export default function App() {
   return (
