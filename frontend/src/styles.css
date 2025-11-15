@@ -1,110 +1,138 @@
-/* GLOBAL */
+/* --------------------------------------------- */
+/* GLOBAL DARK THEME  –  Premium UI              */
+/* --------------------------------------------- */
+
 body {
   margin: 0;
   padding: 0;
-  background: #0f1115;
-  color: #e8e8e8;
+  background: #0e0f11;
+  color: white;
   font-family: "Inter", sans-serif;
+  transition: background 0.3s ease, color 0.3s ease;
 }
 
-h1, h2, h3, h4 {
-  color: #ffffff;
-}
-
-a {
-  color: #4da3ff;
-  text-decoration: none;
-}
-
-/* CONTAINER */
-.container {
-  width: 90%;
-  max-width: 1100px;
+.page-wrapper {
+  padding: 40px;
+  max-width: 1200px;
   margin: auto;
+}
+
+/* Typography */
+h1, h2, h3, h4, h5 {
+  font-weight: 600;
+  margin-bottom: 12px;
+}
+
+/* --------------------------------------------- */
+/* FORM INPUTS                                    */
+/* --------------------------------------------- */
+
+input, select, textarea {
+  width: 100%;
+  padding: 12px;
+  background: #1c1f25;
+  border: 1px solid #2c2f36;
+  border-radius: 8px;
+  color: white;
+  margin-bottom: 15px;
+  font-size: 15px;
+  transition: 0.2s ease;
+}
+
+input:focus, select:focus, textarea:focus {
+  border-color: #4d6fff;
+  box-shadow: 0 0 8px rgba(77,111,255,0.4);
+  outline: none;
+}
+
+/* --------------------------------------------- */
+/* BUTTON                                         */
+/* --------------------------------------------- */
+
+button {
+  background: #4d6fff;
+  border: none;
+  color: white;
+  padding: 12px 20px;
+  border-radius: 8px;
+  font-size: 15px;
+  cursor: pointer;
+  transition: 0.25s ease;
+}
+
+button:hover {
+  background: #3c55cc;
+  transform: translateY(-2px);
+}
+
+button:active {
+  transform: scale(0.97);
+}
+
+/* --------------------------------------------- */
+/* CARD STYLE                                     */
+/* --------------------------------------------- */
+
+.container {
+  background: #131417;
+  padding: 30px;
+  border-radius: 14px;
+  box-shadow: 0 0 25px rgba(0,0,0,0.25);
+  animation: fadeIn 0.4s ease;
+}
+
+.job {
+  background: #181a1f;
+  border-radius: 10px;
   padding: 20px;
+  margin-top: 15px;
+  border: 1px solid #2c2f36;
+  transition: 0.3s ease;
 }
 
-/* NAVBAR */
-nav {
-  background: #151820;
-  padding: 18px 0;
-  border-bottom: 1px solid #232531;
+.job:hover {
+  border-color: #4d6fff;
+  transform: translateY(-3px);
 }
 
-nav a {
-  color: #e8e8e8;
-  margin-right: 20px;
-  font-weight: 500;
-}
+/* --------------------------------------------- */
+/* DASHBOARD GRID                                 */
+/* --------------------------------------------- */
 
-nav a:hover {
-  color: #4da3ff;
-}
-
-/* DASHBOARD GRID */
 .dashboard-grid {
   display: grid;
   grid-template-columns: 2fr 1fr;
-  gap: 30px;
-  margin-top: 40px;
+  gap: 22px;
 }
 
-/* LEFT & RIGHT COLUMN */
-.left-col, .right-col {
-  background: #1a1d24;
-  padding: 20px;
-  border-radius: 10px;
-  box-shadow: 0 0 20px rgba(0,0,0,0.3);
-}
+/* --------------------------------------------- */
+/* UTIL CLASSES                                   */
+/* --------------------------------------------- */
 
-/* JOB CARD */
-.job {
-  background: #232531;
-  padding: 16px;
-  margin-bottom: 14px;
-  border-radius: 8px;
-  border: 1px solid #2c2f39;
-}
-
-.job strong {
-  color: #fff;
-  font-size: 17px;
-}
-
-.job .meta {
-  color: #b3b3b3;
+.muted {
+  color: #8b8d93;
   font-size: 14px;
 }
 
-.job button {
-  background: #4da3ff;
-  color: #fff;
-  padding: 8px 14px;
-  border: none;
-  border-radius: 6px;
-  cursor: pointer;
-  margin-top: 10px;
-}
-
-.job button:hover {
-  background: #2e83d8;
-}
-
-/* FEATURE BOXES */
 .feature {
-  background: #232531;
-  color: #fff;
+  background: #1a1c21;
+  border: 1px solid #2d3038;
+  padding: 15px;
+  border-radius: 12px;
   text-align: center;
-  padding: 18px;
-  border-radius: 8px;
-  font-size: 15px;
+  transition: 0.25s ease;
 }
 
-/* FOOTER */
-footer {
-  margin-top: 50px;
-  padding: 30px 0;
-  background: #151820;
-  color: #b3b3b3;
-  border-top: 1px solid #232531;
+.feature:hover {
+  border-color: #4d6fff;
+  transform: translateY(-2px);
+}
+
+/* --------------------------------------------- */
+/* ANIMATIONS                                     */
+/* --------------------------------------------- */
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(12px); }
+  to { opacity: 1; transform: translateY(0); }
 }
