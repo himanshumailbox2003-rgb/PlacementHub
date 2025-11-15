@@ -9,13 +9,23 @@ const path = require('path');
 
 const app = express();
 
+// -----------------------------
+// 1) BODY PARSERS FIRST
+// -----------------------------
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
+
+// -----------------------------
+// 2) CORS CONFIG
+// -----------------------------
 app.use(
   cors({
     origin: [
-      "https://placement-hub-kappa.vercel.app", // your Vercel frontend
-      "http://localhost:3000"                   // local testing
+      "https://placementhub-kappa.vercel.app",   // Vercel Frontend
+      "http://localhost:3000"                   // Local Dev
     ],
     methods: ["GET", "POST", "PUT", "DELETE"],
+    allowedHeaders: ["Content-Type", "Authorization"],
     credentials: true
   })
 );
@@ -23,13 +33,16 @@ app.use(
 // Allow preflight
 app.options("*", cors());
 
-app.use(express.json());
+// -----------------------------
+// 3) STATIC FILES
+// -----------------------------
 app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
 
-// PORT
+// -----------------------------
+// 4) DATABASE CONNECTION
+// -----------------------------
 const PORT = process.env.PORT || 5000;
 
-// MongoDB connection
 mongoose
   .connect(process.env.MONGO_URI, {
     useNewUrlParser: true,
@@ -38,7 +51,9 @@ mongoose
   .then(() => console.log("MongoDB connected"))
   .catch((err) => console.error("MongoDB connection error", err));
 
-// Routes
+// -----------------------------
+// 5) ROUTES
+// -----------------------------
 app.use('/api/auth', authRoutes);
 app.use('/api/jobs', jobRoutes);
 app.use('/api/users', userRoutes);
@@ -48,5 +63,7 @@ app.get('/', (req, res) => {
   res.json({ ok: true, message: "PlacementHub backend working" });
 });
 
-// Start server
+// -----------------------------
+// 6) START SERVER
+// -----------------------------
 app.listen(PORT, () => console.log("Server running on port", PORT));
