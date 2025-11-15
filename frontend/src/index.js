@@ -5,7 +5,8 @@ import axios from "axios";
 import Preloader from "./components/Preloader";
 import "./styles.css";
 
-axios.defaults.baseURL = "https://placementhub-backend.onrender.com";
+axios.defaults.baseURL = "https://placementhub-backend.onrender.com/";
+axios.defaults.withCredentials = false;
 
 function Root() {
   const [ready, setReady] = useState(false);
@@ -21,5 +22,4 @@ function Root() {
   return <App />;
 }
 
-const root = ReactDOM.createRoot(document.getElementById("root"));
-root.render(<Root />);
+ReactDOM.createRoot(document.getElementById("root")).render(<Root />);
