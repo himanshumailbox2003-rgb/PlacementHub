@@ -1,12 +1,14 @@
-import React, { useEffect, useState } from 'react';
-import axios from 'axios';
+import React, { useEffect, useState } from "react";
+import axios from "axios";
+import Navbar from "../components/Navbar";
+import Footer from "../components/Footer";
 
 export default function Dashboard() {
   const [jobs, setJobs] = useState([]);
-  const [title, setTitle] = useState('');
-  const [company, setCompany] = useState('');
-  const [desc, setDesc] = useState('');
   const [user, setUser] = useState(null);
+  const [title, setTitle] = useState("");
+  const [company, setCompany] = useState("");
+  const [desc, setDesc] = useState("");
 
   useEffect(() => {
     load();
@@ -14,16 +16,15 @@ export default function Dashboard() {
   }, []);
 
   async function load() {
-    const res = await axios.get('/api/jobs');
-    setJobs(res.data.jobs);
+    try {
+      const res = await axios.get("/api/jobs");
+      setJobs(res.data.jobs || []);
+    } catch (e) {}
   }
 
   async function loadMe() {
     try {
-      const token = localStorage.getItem('ph_token');
-      const res = await axios.get('/api/auth/me', {
-        headers: { Authorization: 'Bearer ' + token }
-      });
+      const res = await axios.get("/api/auth/me", { headers: { Authorization: "Bearer " + localStorage.getItem("ph_token") } });
       setUser(res.data.user);
     } catch (e) {}
   }
@@ -31,69 +32,68 @@ export default function Dashboard() {
   async function postJob(e) {
     e.preventDefault();
     try {
-      const token = localStorage.getItem('ph_token');
-      await axios.post(
-        '/api/jobs',
-        { title, company, description: desc },
-        { headers: { Authorization: 'Bearer ' + token } }
-      );
-
-      setTitle('');
-      setCompany('');
-      setDesc('');
+      await axios.post("/api/jobs", { title, company, description: desc }, { headers: { Authorization: "Bearer " + localStorage.getItem("ph_token") } });
+      setTitle(""); setCompany(""); setDesc("");
       load();
-    } catch (err) {
-      alert(err.response?.data?.error || 'Failed');
-    }
-  }
-
-  async function apply(jobId) {
-    try {
-      const token = localStorage.getItem('ph_token');
-      const form = new FormData();
-
-      const file = document.getElementById('resume').files[0];
-      if (file) form.append('resume', file);
-
-      await axios.post(`/api/jobs/${jobId}/apply`, form, {
-        headers: {
-          Authorization: 'Bearer ' + token,
-          'Content-Type': 'multipart/form-data'
-        }
-      });
-
-      alert('Applied');
-    } catch (err) {
-      alert(err.response?.data?.error || 'Failed');
-    }
+    } catch (err) { alert(err.response?.data?.error || "Failed"); }
   }
 
   return (
-    <div className="container">
-      <h2>Dashboard</h2>
+    <>
+      <Navbar />
+      <div className="dashboard-grid page-wrapper">
+        <div className="left-col">
+          <div className="container">
+            <h2>Jobs</h2>
+            <div className="muted">Logged in: {user?.name} ({user?.role})</div>
 
-      <div>Logged in: {user?.name} ({user?.role})</div>
+            {user?.role === "recruiter" && (
+              <div style={{marginTop:12}}>
+                <h3>Post Job</h3>
+                <form onSubmit={postJob}>
+                  <input value={title} onChange={e=>setTitle(e.target.value)} placeholder="Title" />
+                  <input value={company} onChange={e=>setCompany(e.target.value)} placeholder="Company" />
+                  <textarea value={desc} onChange={e=>setDesc(e.target.value)} placeholder="Description" rows={4}></textarea>
+                  <button type="submit">Post Job</button>
+                </form>
+              </div>
+            )}
 
-      {user?.role === 'recruiter' && (
-        <form onSubmit={postJob}>
-          <h3>Post Job</h3>
-          <input value={title} onChange={e => setTitle(e.target.value)} placeholder="Title" />
-          <input value={company} onChange={e => setCompany(e.target.value)} placeholder="Company" />
-          <textarea value={desc} onChange={e => setDesc(e.target.value)} placeholder="Description"></textarea>
-          <button>Post</button>
-        </form>
-      )}
-
-      <h3>Jobs</h3>
-      <input type="file" id="resume" />
-
-      {jobs.map(j => (
-        <div className="job" key={j._id}>
-          <strong>{j.title}</strong> — {j.company}
-          <p>{j.description}</p>
-          <button onClick={() => apply(j._id)}>Apply</button>
+            <div style={{marginTop:18}}>
+              {jobs.length === 0 && <div className="muted">No jobs posted yet.</div>}
+              {jobs.map(j => (
+                <div key={j._id} className="job">
+                  <div>
+                    <strong>{j.title}</strong>
+                    <div className="meta">{j.company}</div>
+                    <div style={{marginTop:8}}>{j.description}</div>
+                  </div>
+                  <div className="actions">
+                    <button onClick={async ()=>{ try{ const token=localStorage.getItem('ph_token'); const res = await axios.post(`/api/jobs/${j._id}/apply`, new FormData(), { headers:{ Authorization: 'Bearer '+token } }); alert('Applied'); }catch(e){ alert('Failed'); }}}>Apply</button>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
         </div>
-      ))}
-    </div>
+
+        <div className="right-col">
+          <div className="container">
+            <h3>Profile</h3>
+            <div><strong>{user?.name}</strong></div>
+            <div className="muted">{user?.email}</div>
+
+            <hr style={{margin:'16px 0', borderColor:'rgba(255,255,255,0.04)'}} />
+
+            <h4>Quick Stats</h4>
+            <div style={{display:'grid', gridTemplateColumns:'1fr 1fr', gap:8}}>
+              <div className="feature" style={{padding:10, borderRadius:8}}>Jobs<br/><strong>{jobs.length}</strong></div>
+              <div className="feature" style={{padding:10, borderRadius:8}}>Role<br/><strong>{user?.role || '-'}</strong></div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <Footer />
+    </>
   );
 }
